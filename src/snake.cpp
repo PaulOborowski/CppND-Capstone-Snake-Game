@@ -1,7 +1,7 @@
 #include "snake.h"
+#include "food.h"
 #include <cmath>
 #include <iostream>
-#include "food.h"
 
 void Snake::Update() {
   SDL_Point prev_cell{

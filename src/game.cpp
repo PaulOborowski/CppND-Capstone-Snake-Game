@@ -1,14 +1,14 @@
 #include "game.h"
 #include "SDL.h"
-#include <iostream>
 #include "debug.h"
 #include "food.h"
+#include <iostream>
 
 Game::Game(std::size_t grid_width, std::size_t grid_height)
-    : snake(grid_width, grid_height)  { 
+    : snake(grid_width, grid_height), _food(grid_width, grid_height) {
 
   _food.Place(snake);
-  };
+};
 
 void Game::Run(Controller const &controller, Renderer &renderer,
                std::size_t target_frame_duration) {
@@ -23,9 +23,9 @@ void Game::Run(Controller const &controller, Renderer &renderer,
     frame_start = SDL_GetTicks();
 
     // Input, Update, Render - the main game loop.
-    controller.HandleInput(running, snake);
+    controller.HandleInput(running, snake, _food);
     Update();
-    renderer.Render(snake,  _food);
+    renderer.Render(snake, _food);
 
     frame_end = SDL_GetTicks();
 
@@ -55,19 +55,19 @@ void Game::Update() {
     return;
 
   snake.Update();
+  _food.Update();
 
   int new_x = static_cast<int>(snake.head_x);
   int new_y = static_cast<int>(snake.head_y);
 
   // Check for food for class object
-  if (_food.GetLoc().x== new_x && _food.GetLoc().y == new_y) {
+  if (_food.GetLoc().x == new_x && _food.GetLoc().y == new_y) {
     score++;
     _food.Place(snake);
     // Grow snake and increase speed.
     snake.GrowBody();
     snake.speed += 0.02;
   }
-  
 }
 
 int Game::GetScore() const { return score; }

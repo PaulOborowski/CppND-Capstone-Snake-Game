@@ -7,8 +7,6 @@
 #include "renderer.h"
 #include "snake.h"
 
-
-
 class Game {
 public:
   Game(std::size_t grid_width, std::size_t grid_height);
@@ -18,7 +16,7 @@ public:
   int GetSize() const;
 
 private:
-  Snake snake;  
+  Snake snake;
   Food _food;
 
   int score{0};
