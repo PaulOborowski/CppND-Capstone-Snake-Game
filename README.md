@@ -1,5 +1,8 @@
 # CPPND: Capstone Snake Game Example
 
+changes applied to pass capstone project:
+- Food is definied within an own class, instead of a SDL_Point. Adapted game and renderer class for use of food object.
+
 This is a starter repo for the Capstone project in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213). The code for this repo was inspired by [this](https://codereview.stackexchange.com/questions/212296/snake-game-in-c-with-sdl) excellent StackOverflow post and set of responses.
 
 <img src="snake_game.gif"/>
