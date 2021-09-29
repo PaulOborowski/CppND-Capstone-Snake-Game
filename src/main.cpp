@@ -2,6 +2,13 @@
 #include "game.h"
 #include "renderer.h"
 #include <iostream>
+#include "globals.h"
+
+  // init random number generator  
+  std::random_device dev;
+  std::mt19937 engine(dev());
+  std::uniform_int_distribution<int> random_w(0,static_cast<int>(32 - 1));
+  std::uniform_int_distribution<int> random_h(0,static_cast<int>(32 - 1));
 
 int main() {
   constexpr std::size_t kFramesPerSecond{60};
@@ -10,7 +17,7 @@ int main() {
   constexpr std::size_t kScreenHeight{640};
   constexpr std::size_t kGridWidth{32};
   constexpr std::size_t kGridHeight{32};
-
+  
   Renderer renderer(kScreenWidth, kScreenHeight, kGridWidth, kGridHeight);
   Controller controller;
   Game game(kGridWidth, kGridHeight);
