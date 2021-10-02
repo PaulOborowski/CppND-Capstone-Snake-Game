@@ -6,6 +6,7 @@
 #include "food.h"
 #include "renderer.h"
 #include "snake.h"
+#include "vector"
 
 class Game {
 public:
@@ -23,6 +24,16 @@ private:
 
   void PlaceFood();
   void Update();
+};
+
+// occupancy map of all objects on the game board
+class GameMap {
+public:
+  std::vector<std::vector<uint>> map;
+
+  void Update(Snake &snake, Food &food);
+
+private:
 };
 
 #endif

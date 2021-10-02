@@ -53,9 +53,10 @@ void Game::Run(Controller const &controller, Renderer &renderer,
 void Game::Update() {
   if (!snake.alive)
     return;
-
-  snake.Update();
+      
   _food.Update();
+  SDL_Point target = _food.GetLoc();
+  snake.Update(target);
 
   int new_x = static_cast<int>(snake.head_x);
   int new_y = static_cast<int>(snake.head_y);

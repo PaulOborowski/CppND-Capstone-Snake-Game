@@ -1,14 +1,39 @@
 #include "snake.h"
+#include "debug.h"
 #include "food.h"
 #include <cmath>
 #include <iostream>
 
-void Snake::Update() {
+void Snake::Update(SDL_Point target) {
   SDL_Point prev_cell{
       static_cast<int>(head_x),
       static_cast<int>(
           head_y)}; // We first capture the head's cell before updating.
+  
+  
+  if (autoSteer == true) {
+    // target deviation in x and y
+    int devX = target.x - prev_cell.x;
+    int devY = target.y - prev_cell.y;
+    DEBUG("devX: " << devX << "devY: " << devY << std::endl);    
+
+    // apply direction change to reduce biggest deviation
+    if (abs(devX) > abs(devY)) {
+      if (devX > 0) {
+        direction = Direction::kRight;
+      } else {
+        direction = Direction::kLeft;
+      }
+    } else {
+      if (devY < 0) {
+        direction = Direction::kUp;
+      } else {
+        direction = Direction::kDown;
+      }
+    }
+  }
   UpdateHead();
+
   SDL_Point current_cell{
       static_cast<int>(head_x),
       static_cast<int>(head_y)}; // Capture the head's cell after updating.
@@ -21,6 +46,8 @@ void Snake::Update() {
 }
 
 void Snake::UpdateHead() {
+
+  // user steers snake
   switch (direction) {
   case Direction::kUp:
     head_y -= speed;

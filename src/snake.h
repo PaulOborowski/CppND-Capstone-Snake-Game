@@ -10,9 +10,11 @@ public:
 
   Snake(int grid_width, int grid_height)
       : grid_width(grid_width), grid_height(grid_height),
-        head_x(grid_width / 2), head_y(grid_height / 2) {}
+        head_x(grid_width / 2), head_y(grid_height / 2) {    
+  }
 
-  void Update();
+  void Update(SDL_Point target);
+  // void Update();
 
   void GrowBody();
   bool SnakeCell(int x, int y);
@@ -25,6 +27,8 @@ public:
   float head_x;
   float head_y;
   std::vector<SDL_Point> body;
+  // snake steers itself without user input
+  bool autoSteer = true;
 
 private:
   void UpdateHead();
