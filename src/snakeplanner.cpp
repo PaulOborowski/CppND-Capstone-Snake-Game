@@ -41,13 +41,10 @@ SDL_Point SnakePlanner::Update(SDL_Point start, SDL_Point target,
 
   // perform Search
   auto next = Search();
-  PrintBoard();
-  DEBUG("start: " << _init[0] << " " << _init[1] << std::endl);
-  DEBUG("goal: " << _goal[0] << " " << _goal[1] << std::endl);
-  DEBUG("next: " << next[0] << " " << next[1] << std::endl);
+  PrintBoard();  
   // std::cin.ignore();
   target.x = next[0];
-  target.x = next[1];
+  target.y = next[1];
   return target;
 };
 
@@ -79,12 +76,8 @@ void SnakePlanner::PrintBoard() {
 }
 
 // Implementation of A* search algorithm
+// ToDo: add feature to get the final path when using infinite number of steps search iterations
 std::vector<int> SnakePlanner::Search() {
-
-  // do nothing if we reached goal
-  if (_init[0] == _goal[0] && _init[0] == _goal[0]) {
-    return std::vector<int>{_goal[1], _goal[0]};
-  }
 
   // Create the vector of open nodes.
   _open.clear();
@@ -109,10 +102,17 @@ std::vector<int> SnakePlanner::Search() {
     _grid[x][y] = State::kPath;
 
     // Check if we're done.
-    if ((x == _goal[0] && y == _goal[1]) || n > 1) {
+    if (n>1) {
+        DEBUG("run out of tries. \n");
+        _grid[_init[0]][_init[1]] = State::kStart;
+        _grid[_goal[0]][_goal[1]] = State::kFinish;
+        return std::vector<int>{x, y};
+    }
+    if (x == _goal[0] && y == _goal[1]) {
+      DEBUG("found solution. \n");
       _grid[_init[0]][_init[1]] = State::kStart;
       _grid[_goal[0]][_goal[1]] = State::kFinish;
-      return std::vector<int>{y, x};
+      return std::vector<int>{x, y};
     }
 
     // If we're not done, expand search to current node's neighbors.
@@ -121,7 +121,7 @@ std::vector<int> SnakePlanner::Search() {
 
   // We've run out of new nodes to explore and haven't found a path.
   std::cout << "No path found! \n";
-  return std::vector<int>{_goal[1], _goal[0]};
+  return std::vector<int>{_goal[0], _goal[1]};
 };
 
 // Add a node to the open list and mark it as open.

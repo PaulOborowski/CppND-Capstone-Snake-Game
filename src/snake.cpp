@@ -17,32 +17,57 @@ void Snake::Update(SDL_Point target) {
 
   if (autoSteer == true) {
     // ToDo: implement low level obstacle avoidance
+    
+    DEBUG("start: " << prev_cell.x << " " << prev_cell.y << std::endl);
+    DEBUG("goal: " << target.x << " " << target.y << std::endl);
     target = _snakePlanner.Update(prev_cell, target, body);
-
-    // target deviation in x and y
-    float devX = target.x - prev_cell.x;
-    float devY = target.y - prev_cell.y;
-    DEBUG("head_x: " << head_x << "head_y: " << head_y << std::endl);
-    DEBUG("devX: " << devX << "devY: " << devY << std::endl);
-
-    // apply direction change to reduce biggest deviation
-    if (abs(devX) > abs(devY)) {
-      if (devX > 0) {
-        direction = Direction::kRight;
-        DEBUG("automated steering: right " << std::endl);
-      } else {
-        direction = Direction::kLeft;
-        DEBUG("automated steering: left " << std::endl);
-      }
-    } else {
-      if (devY < 0) {
+    DEBUG("next: " << target.x << " " << target.y << std::endl);
+    
+    if (target.x == prev_cell.x) {
+      // go either up or down
+      if (target.y < prev_cell.y) {
         direction = Direction::kUp;
         DEBUG("automated steering: up " << std::endl);
       } else {
         direction = Direction::kDown;
         DEBUG("automated steering: down " << std::endl);
       }
+    } else {
+      // go either left or right
+      if (target.x < prev_cell.x) {
+        direction = Direction::kLeft;
+        DEBUG("automated steering: left " << std::endl);
+      } else {
+        direction = Direction::kRight;
+        DEBUG("automated steering: right " << std::endl);
+      }
     }
+    /*
+       // target deviation in x and y
+       float devX = target.x - prev_cell.x;
+       float devY = target.y - prev_cell.y;
+       DEBUG("head_x: " << head_x << "head_y: " << head_y << std::endl);
+       DEBUG("devX: " << devX << "devY: " << devY << std::endl);
+
+       // apply direction change to reduce biggest deviation
+       if (abs(devX) > abs(devY)) {
+         if (devX > 0) {
+           direction = Direction::kRight;
+           DEBUG("automated steering: right " << std::endl);
+         } else {
+           direction = Direction::kLeft;
+           DEBUG("automated steering: left " << std::endl);
+         }
+       } else {
+         if (devY < 0) {
+           direction = Direction::kUp;
+           DEBUG("automated steering: up " << std::endl);
+         } else {
+           direction = Direction::kDown;
+           DEBUG("automated steering: down " << std::endl);
+         }
+       }
+       */
   }
 
   UpdateHead();
