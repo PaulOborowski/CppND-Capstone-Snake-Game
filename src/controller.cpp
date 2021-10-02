@@ -36,7 +36,7 @@ void Controller::HandleInput(bool &running, Snake &snake, Food &food) const {
                         Snake::Direction::kLeft);
         break;
 
-        // handle controls of food
+      // handle controls of food
       case SDLK_w:
         DEBUG("Move food up \n");
         food.direction = Food::Direction::kUp;
@@ -56,6 +56,11 @@ void Controller::HandleInput(bool &running, Snake &snake, Food &food) const {
         DEBUG("Move food right \n");
         food.direction = Food::Direction::kRight;
         break;
+
+      // handle controls of autosteer
+      case SDLK_SPACE:
+        snake.autoSteer = !snake.autoSteer;
+        DEBUG("autosteer " << snake.autoSteer << " \n");
       }
     } else if (e.type == SDL_KEYUP) {
       // hold position of food if no button pressed
