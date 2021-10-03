@@ -1,9 +1,29 @@
 # CPPND: Capstone Snake Game Example
 
-changes applied to pass capstone project:
-- Food is definied within an own class, instead of a SDL_Point. Adapted game and renderer class for use of food object.
-- added controls to Food object. use WASD keys.
-- ToDo: add auto mode for snake to search the path by its own. use space bar to activate  auto mode. Use A*-Search to find path to food
+## Capstone Project:
+
+### New features
+* Food is definied within an own class, instead of a SDL_Point. Adapted game and renderer class for use of food object.
+* added controls to Food object. use WASD keys.
+* added a reverse mode. By pressing space bar, the snake will start hunting for the food automatically. The player plays the role of the food and has to run away from snake using WASD keys.
+
+### New files and classes:
+* moved food object functionalities into own class, see food.h
+* added snakeplanner class for the reverse mode. It is based on A*-Search from the first lesson.
+* adapted controller.h for additional user input keys to place food and activate reverse mode
+
+### Applied C++ features:
+* the new features of the game were implemented with focus on applying OOP-techniques and ecapsulating the functionalities of the game. 
+* user input for controlling the food position and activation of reverse mode.
+* multiple use of for-loops and switch statements in the implementation of the snakeplanner and user input processing. 
+
+### Build instructions:
+* make build - normal build
+* make debug - with additional debug message printed in the therminal
+
+### Dependencies
+* no change, see below
+
 
 This is a starter repo for the Capstone project in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213). The code for this repo was inspired by [this](https://codereview.stackexchange.com/questions/212296/snake-game-in-c-with-sdl) excellent StackOverflow post and set of responses.
 

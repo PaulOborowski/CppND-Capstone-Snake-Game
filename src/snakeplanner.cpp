@@ -41,7 +41,7 @@ SDL_Point SnakePlanner::Update(SDL_Point start, SDL_Point target,
 
   // perform Search
   auto next = Search();
-  PrintBoard();  
+  PrintBoard();
   // std::cin.ignore();
   target.x = next[0];
   target.y = next[1];
@@ -73,10 +73,12 @@ void SnakePlanner::PrintBoard() {
     }
     std::cout << "\n";
   }
+  std::cout << "\n\n";
 }
 
 // Implementation of A* search algorithm
-// ToDo: add feature to get the final path when using infinite number of steps search iterations
+// ToDo: add feature to get the final path when using infinite number of steps
+// search iterations
 std::vector<int> SnakePlanner::Search() {
 
   // Create the vector of open nodes.
@@ -88,6 +90,7 @@ std::vector<int> SnakePlanner::Search() {
   int g = 0;
   int h = Heuristic(x, y, _goal[0], _goal[1]);
   int n = 0;
+  int nMax = 1;
   AddToOpen(x, y, g, h);
 
   while (_open.size() > 0) {
@@ -102,14 +105,8 @@ std::vector<int> SnakePlanner::Search() {
     _grid[x][y] = State::kPath;
 
     // Check if we're done.
-    if (n>1) {
-        DEBUG("run out of tries. \n");
-        _grid[_init[0]][_init[1]] = State::kStart;
-        _grid[_goal[0]][_goal[1]] = State::kFinish;
-        return std::vector<int>{x, y};
-    }
-    if (x == _goal[0] && y == _goal[1]) {
-      DEBUG("found solution. \n");
+    if ((x == _goal[0] && y == _goal[1]) || n > nMax) {
+      DEBUG("found solution with " << n << "tries \n.");
       _grid[_init[0]][_init[1]] = State::kStart;
       _grid[_goal[0]][_goal[1]] = State::kFinish;
       return std::vector<int>{x, y};

@@ -17,12 +17,12 @@ void Snake::Update(SDL_Point target) {
 
   if (autoSteer == true) {
     // ToDo: implement low level obstacle avoidance
-    
+
     DEBUG("start: " << prev_cell.x << " " << prev_cell.y << std::endl);
     DEBUG("goal: " << target.x << " " << target.y << std::endl);
     target = _snakePlanner.Update(prev_cell, target, body);
     DEBUG("next: " << target.x << " " << target.y << std::endl);
-    
+
     if (target.x == prev_cell.x) {
       // go either up or down
       if (target.y < prev_cell.y) {

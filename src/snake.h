@@ -19,6 +19,7 @@ public:
 
   void GrowBody();
   bool SnakeCell(int x, int y);
+  
 
   Direction direction = Direction::kUp;
 
@@ -27,8 +28,6 @@ public:
   bool alive{true};
   float head_x;
   float head_y;
-  float headUnMod_x;
-  float headUnMod_y;
   std::vector<SDL_Point> body;
   // snake steers itself without user input
   bool autoSteer = false;
