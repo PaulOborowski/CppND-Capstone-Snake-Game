@@ -18,8 +18,8 @@ public:
   SnakePlanner(int width, int height);
 
   // Update  function called every iteration
-  SDL_Point Update(SDL_Point start, SDL_Point target,
-                   std::vector<SDL_Point> obstacles);
+  SDL_Point Update(SDL_Point &start, SDL_Point &target,
+                   std::vector<SDL_Point> &obstacles);
 
   // print board for debuging
   void PrintBoard();

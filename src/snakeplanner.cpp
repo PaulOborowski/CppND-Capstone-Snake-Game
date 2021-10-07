@@ -16,8 +16,8 @@ SnakePlanner::SnakePlanner(int width, int height) {
                                                   << _grid[0].size() << " \n");
 };
 
-SDL_Point SnakePlanner::Update(SDL_Point start, SDL_Point target,
-                               std::vector<SDL_Point> obstacles) {
+SDL_Point SnakePlanner::Update(SDL_Point &start, SDL_Point &target,
+                               std::vector<SDL_Point> &obstacles) {
 
   // reset start and goal
   _init[0] = start.x;

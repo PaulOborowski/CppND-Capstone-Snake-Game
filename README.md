@@ -17,6 +17,30 @@
 * user input for controlling the food position and activation of reverse mode.
 * multiple use of for-loops and switch statements in the implementation of the snakeplanner and user input processing. 
 
+### Rubrics points adressed in this project:
+* The project demonstrates an understanding of C++ functions and control structures:
+  * controller.cpp line 40 to 71: extended case statement for control of food object and activation of autosteer
+  * debug.h : added debug functions using preprocessor language
+  * snakeplanner.cpp line 82 to 122: using while and if-Statements in the Search-Method
+  * snakeplanner.cpp line 131 to 151: using for in ExpandNeighbors-Method
+* The project accepts user input and processes the input:
+  * controller.cpp line 40 to 71: user input is beaing read to control location of food object and activation of autosteer mode
+* The project uses Object Oriented Programming techniques:
+  * food.h, food.cpp: added class for graphical food object, which holds the position as private member and updates it at every iteration depending on the state of the game
+  * snakeplanner.h, snakeplanner.cpp: added class to enable autosteer functionality of the snake based on AStar Search.
+* Classes use appropriate access specifiers for class members:
+  * food.h: all members of the class Food are definied as public or private.
+  * snakeplanner.h: all members of the class SnakePlanner are definied as public or private.
+* Class constructors utilize member initialization lists:
+  * snakeplanner.cpp line 8 to 17
+  * food.cpp line 6 to 9;
+* Classes encapsulate behavior:
+  * snakeplanner.h: Methods which are part of AStar-Search are private. User can only access the Update method, which triggers the actual search algoirthm and returns target position of the snake head.
+  * food.h: position variables are pviate. User can access position data via GetLoc().
+* The project makes use of references in function declarations:
+  * food.h line 16: Place method has input reference to Snake object.
+  * snakeplanner.h line 21: Update method has input defined as references.
+
 ### Build instructions:
 * make build - normal build
 * make debug - with additional debug message printed in the therminal
